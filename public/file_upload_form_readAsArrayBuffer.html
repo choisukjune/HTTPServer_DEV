@@ -1,0 +1,33 @@
+<include>_header_info.html</include>
+	<div id="container">
+		<include>header.html</include>
+		<div id="main">
+			<include>navi.html</include>
+			<div id="content">
+				<!-- Contents -->
+                <link rel="stylesheet" type="text/css" href="/css/style.css">
+                <!--<script src="/js/window.service.util.js"></script>-->
+                <!--<script src="/js/window.service.file_upload.readAsArrayBuffer.js"></script>
+                -->
+                <!--<input type='file' accept='image/*' onchange='openFile(event)'>-->
+                <input type="file"  multiple="multiple" id="file_upload_input"/>
+                <br>
+
+                <a href="#" class="button" id="select_file_button">Select File</a>
+                <!--<button id="upload">upload</button>-->
+                <a href="#" class="button" id="upload">upload</a>
+                <!--<img id="output">-->
+                <div id="upload_files"></div>
+
+				<!-- Contents -->
+			</div>
+		</div>
+		<include>footer.html</include>
+	</div>
+<include>_footer_info.html</include>
+
+
+<script>
+var script = "<!=loadScript=!>"
+window.service.util.loadScript("/js/lib/" + script, "body",function(){ console.log(script + " - loadScript -- Done."); });
+</script>

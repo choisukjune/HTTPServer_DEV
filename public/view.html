@@ -1,0 +1,50 @@
+<include>_header_info.html</include>
+	<div id="container">
+		<include>header.html</include>
+		<div id="main">
+			<include>navi.html</include>
+			<div id="content">
+                <!-- Contents -->
+                <form method="POST" action="http://localhost:8888/main">
+                    Name: <input type="text" name="name" />
+                    Name1: <input type="text" name="name1" />
+                    Name2: <input type="text" name="name2" />
+                    <input type="submit" value="Submit" />
+                </form>
+                <ul>
+                    <li><!=name=!></li>
+                    <li><!=name1=!></li>
+                    <li><!=name2=!></li>
+                </ul>
+                <!-- Contents -->
+			</div>
+		</div>
+		<include>footer.html</include>
+	</div>
+<include>_footer_info.html</include>
+<script type="text/JavaScript">
+    console.log('begin');
+    var http = new XMLHttpRequest();
+    var params = "text=stuff";
+    http.open("POST", "http://localhost:8888", true);
+
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    //http.setRequestHeader("Content-length", params.length);
+    //http.setRequestHeader("Connection", "close");
+
+    http.onreadystatechange = function() {
+        console.log('onreadystatechange');
+        if (http.readyState == 4 && http.status == 200) {
+            alert(http.responseText);
+        }
+        else {
+            console.log('readyState=' + http.readyState + ', status: ' + http.status);
+        }
+    }
+
+    console.log('sending...')
+    http.send(params);
+    console.log('end');
+
+</script>
+<include>footer.html</include>

@@ -1,0 +1,85 @@
+<include>_header_info.html</include>
+	<div id="container">
+		<include>header.html</include>
+		<div id="main">
+			<include>navi.html</include>
+			<div id="content">
+                <!--Conents-->
+                <link rel="stylesheet" type="text/css" href="/css/style.css">
+                <!--<div class="wrap">-->
+                    <a href="#" class="button" id="aaa">Send Query</a>
+                    <!--<a href="#" class="button2">Awesome Button</a>-->
+                <!--</div>-->
+
+                <div><textarea style="width:100%; min-height:65%; font-size : 1.5em" id="res"></textarea></div>
+                <pre><!=data=!></pre>
+				<!--Conents-->
+			</div>
+		</div>
+		<include>footer.html</include>
+	</div>
+<include>_footer_info.html</include>
+
+<script type="text/JavaScript">
+
+    console.log('begin');
+
+    //var params = "text=stuff";
+
+    // var _el_request = {}
+    // _el_request[ 'host' ] = document.getElementById('host').value;
+    // _el_request[ 'method' ] = document.getElementById('method').value;
+    // _el_request[ 'path' ] = document.getElementById('path').value;
+    // _el_request[ 'port' ] = document.getElementById('port').value * 1;
+    // _el_request[ 'characterSet' ] = document.getElementById('characterSet').value;
+
+    var a = function(){
+
+    // var url = "/request?data="
+    //         + JSON.stringify( _el_request );
+    //         console.log( url )
+    var url = "/MongoDB_query_excute"
+    //var url = "/MongoDB_query_native_driver"
+    var http = new XMLHttpRequest();
+            http.open("GET", url, true);
+
+            http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            //http.setRequestHeader("Content-length", params.length);
+            //http.setRequestHeader("Connection", "close");
+            http.setRequestHeader('Access-Control-Allow-Origin','*')
+            http.onreadystatechange = function() {
+                console.log('onreadystatechange');
+                if (http.readyState == 4 && http.status == 200) {
+
+                    /*/
+                    var arr = JSON.parse( http.responseText );
+                    var t = document.getElementById("res");
+                    var data = ["_id","nm$brand_basic","barcode"]
+                    for(var i = 0; i < arr.length; ++i ){
+                        var k = document.createElement("ul");
+                        for (var j = 0; j < data.length; j++) {
+                            var l = document.createElement("li");
+                            var tt0 = document.createTextNode( arr[i][ data[ j ] ] );
+                            l.appendChild( tt0 );
+                            k.appendChild( l );
+                        }
+                        t.appendChild( k )
+                    }
+                    /*/
+                    document.getElementById("res").textContent = http.responseText
+                    //*/
+                }
+                else {
+                    console.log('readyState=' + http.readyState + ', status: ' + http.status);
+                }
+            }
+
+            console.log('sending...')
+            http.send();
+            console.log('end');
+
+
+    }
+    document.getElementById('aaa').addEventListener('click', function(){ a() } )
+
+</script>

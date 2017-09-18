@@ -1,0 +1,72 @@
+<include>_header_info.html</include>
+	<div id="container">
+		<include>header.html</include>
+		<div id="main">
+			<include>navi.html</include>
+			<div id="content">
+                <h3>Requester</h3>
+                <!-- Contents -->
+                host : <input type="text" name="name" id="host" value="www.gibmall.com" /></br>
+                method :
+                <select name="method" id="method">
+                    <option value="GET"  selected="selected">GET</option>
+                    <option value="POST">POST</option>
+                </select></br>
+                path : <input type="text" name="name" id="path" value="/"/></br>
+                port : <input type="text" name="name" id="port" value="80"/></br>
+                characterSet : <input type="text" name="name" id="characterSet" value="EUC-KR"/></br>
+
+                <button id="aaa">Sned_Request</button>
+                <div><textarea style="width:100%; height:500px; font-size : 1.5em" id="res"></textarea></div>
+                <pre><!=data=!></pre>
+                <!-- Contents -->
+            </div>
+		</div>
+		<include>footer.html</include>
+	</div>
+<include>_footer_info.html</include>
+
+<script type="text/JavaScript">
+    console.log('begin');
+
+    //var params = "text=stuff";
+
+    var _el_request = {}
+    _el_request[ 'host' ] = document.getElementById('host').value;
+    _el_request[ 'method' ] = document.getElementById('method').value;
+    _el_request[ 'path' ] = document.getElementById('path').value;
+    _el_request[ 'port' ] = document.getElementById('port').value * 1;
+    _el_request[ 'characterSet' ] = document.getElementById('characterSet').value;
+
+    var a = function( _el_request ){
+
+    var url = "/request?data="
+            + JSON.stringify( _el_request );
+            console.log( url )
+    var http = new XMLHttpRequest();
+            http.open("GET", url, true);
+
+            http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            //http.setRequestHeader("Content-length", params.length);
+            //http.setRequestHeader("Connection", "close");
+            http.setRequestHeader('Access-Control-Allow-Origin','*')
+            http.onreadystatechange = function() {
+                console.log('onreadystatechange');
+                if (http.readyState == 4 && http.status == 200) {
+                    //alert(http.responseText);
+                    document.getElementById("res").textContent = http.responseText
+                }
+                else {
+                    console.log('readyState=' + http.readyState + ', status: ' + http.status);
+                }
+            }
+
+            console.log('sending...')
+            http.send();
+            console.log('end');
+
+
+    }
+    document.getElementById('aaa').addEventListener('click', function(){ a( _el_request ) } )
+
+</script>
