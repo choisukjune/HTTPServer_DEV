@@ -12,7 +12,7 @@ var file_upload_textAsdataURL = function( req, res, d, pathname ){
     		fileNm : upload_filNm
     		, isEnd : 0
     	};
-    global.lib.fs.writeFile(uploadPath +upload_filNm, buffer,"binary", function(err){
+    global.lib.fs.writeFile(uploadPath + upload_filNm, buffer,"binary", function(err){
       //Finished
       if(err){global.CSJLog.timeStamp(err)}
       global.util.response.res_200_ok_String( req, res, JSON.stringify( r ) )

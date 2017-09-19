@@ -31,21 +31,17 @@ global.ROUTER.Initialize_router = function(){
     }
 };
 
+global.STATIC = {}
+global.STATIC.resource = [ "css", "js", "libs" ];
+
 global.ROUTER.routerControl = function(req,res) {
+
     var pathname = global.lib.url.parse(req.url).pathname;
 
-    //css router
-    if (req.url.indexOf('css') !== -1) {
-
-        var css = global.lib.fs.createReadStream(global.ROOTPath + "/public/" + req.url, 'utf8');
-        return css.pipe(res);
-    }
-
-    // //js router
-    if (req.url.indexOf('js') !== -1) {
-        var js = global.lib.fs.createReadStream(global.ROOTPath + "/public/" + req.url, 'utf8');
-        console.log( global.ROOTPath + "\\public\\" + req.url )
-        return js.pipe(res);
+    //resource router
+    if (global.STATIC.resource.indexOf( req.url.split("/")[ 1 ] ) !== -1) {
+        var resource = global.lib.fs.createReadStream(global.ROOTPath + "/public/" + req.url, 'utf8');
+        return resource.pipe(res);
     }
 
     if ( global.ROUTER.INFO.hasOwnProperty( pathname ) ){
@@ -101,6 +97,7 @@ global.ROUTER.POST__req_res = function( req, res, pathname ){
     req.on('end', function () {
        // global.CSJLog.timeStamp("Body: " + body);
         //req.body = body;
+        console.log( pathname )
         global.ROUTER.INFO[ pathname ]( req, res, body, pathname )
     })
 };
